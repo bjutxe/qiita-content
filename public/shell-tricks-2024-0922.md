@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-23T01:36:30+09:00'
+updated_at: '2024-09-23T01:47:43+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -58,7 +58,7 @@ git remote set-url origin https://bjutxe:ghp_abcde12345@github.com/bjutxe/jdp-te
 # 色々と柔軟に組み合わせられる。以下でVSCodeを開ける
 $ code ${directoryname}
 ```
-# 標準出力系
+# 標準出力系・分析系
 ## diff ディレクトリ 再帰的 ファイル名のみ
 // TODO: 執筆
 ```bash
@@ -209,25 +209,6 @@ $ diff watch-repository{,-test}.txt
 13d10
 < django/django
 ```
-## xargsで上手く差し込む
-// TODO: ghがややこしいので簡易化する、別で書き出す
-```bash
-# 引数が1個の場合は-I@で差し込めば上手く機能するようです
-$ gh search repos --stars=">=50000" --sort stars --limit 2 --json fullName --jq '.[].fullName' \
-> | xargs -I@ gh api /search/issues?q="repo:@+is:issue+is:open" --jq .total_count
-239
-28
-# 上記をわざわざ-n1指定するとワーニングされる
-$ gh search repos --stars=">=50000" --sort stars --limit 2 --json fullName --jq '.[].fullName' \
-> | xargs -n1 -I@ gh api /search/issues?q="repo:@+is:issue+is:open" --jq .total_count
-xargs: warning: options --max-args and --replace/-I/-i are mutually exclusive, ignoring previous --max-args value
-239
-28
-# 引数が2個以上ある場合はTheBookでやっていたようにsh -cに渡すのが手っ取り早い
-$ cat data.txt | xargs -n2 sh -c 'echo "The inputs are [$1, $2]."' sh
-The inputs are [aaaa, bbbb].
-The inputs are [cccc, dddd].
-```
 # 便利なコマンド
 ## バカデカファイルを分割する
 `51GB`ものファイルを作成してしまったときに`split`コマンドを知りました。
@@ -264,6 +245,25 @@ root@8c724cd91a92:/workspaces/rust-devcon-template# ls -lrth | tail
 root@8c724cd91a92:/workspaces/rust-devcon-template# 
 ```
 # シェル芸作品
+## xargsで上手く差し込む
+// TODO: ghがややこしいので簡易化する、別で書き出す
+```bash
+# 引数が1個の場合は-I@で差し込めば上手く機能するようです
+$ gh search repos --stars=">=50000" --sort stars --limit 2 --json fullName --jq '.[].fullName' \
+> | xargs -I@ gh api /search/issues?q="repo:@+is:issue+is:open" --jq .total_count
+239
+28
+# 上記をわざわざ-n1指定するとワーニングされる
+$ gh search repos --stars=">=50000" --sort stars --limit 2 --json fullName --jq '.[].fullName' \
+> | xargs -n1 -I@ gh api /search/issues?q="repo:@+is:issue+is:open" --jq .total_count
+xargs: warning: options --max-args and --replace/-I/-i are mutually exclusive, ignoring previous --max-args value
+239
+28
+# 引数が2個以上ある場合はTheBookでやっていたようにsh -cに渡すのが手っ取り早い
+$ cat data.txt | xargs -n2 sh -c 'echo "The inputs are [$1, $2]."' sh
+The inputs are [aaaa, bbbb].
+The inputs are [cccc, dddd].
+```
 ## GitHubリポジトリの選定
 `GitHub CLI`の`gh`コマンドを使って、
 コントリビュートしたいOSSを探している時にシェル芸をしました。
