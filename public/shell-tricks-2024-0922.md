@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-22T15:45:54+09:00'
+updated_at: '2024-09-22T16:06:24+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -38,8 +38,8 @@ cat /etc/os-release
 ```bash
 # 同じパターンの手順を繰り返し実施するときに便利
 # 使用する変数を初回で確定させてしまう
-$ patternname="templateMethod" && patternnum=6 && \
-> repositoryname=jdp-${patternname}-`date "+%m%d-%H%M"` \
+$ patternname="templateMethod" && patternnum=6 \
+> && repositoryname=jdp-${patternname}-`date "+%m%d-%H%M"` \
 > && directoryname=jdp-${patternnum}-${patternname} \
 > && echo ${repositoryname} && echo ${directoryname}
 jdp-templateMethod-0727-1356
