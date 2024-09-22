@@ -1,17 +1,17 @@
 ---
 title: オレオレシェル芸ワンライナーチートシート
 tags:
-  - 'シェル芸'
-  - 'ワンライナー'
-  - 'Bash'
-  - 'Linuxコマンド'
-  - 'チートシート'
+  - Bash
+  - ワンライナー
+  - シェル芸
+  - チートシート
+  - Linuxコマンド
 private: false
-updated_at: ''
-id: null
+updated_at: '2024-09-22T15:45:54+09:00'
+id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
-ignorePublish: true
+ignorePublish: false
 ---
 # 基本や頻出
 ## コンソール操作ショートカットキー
@@ -38,8 +38,10 @@ cat /etc/os-release
 ```bash
 # 同じパターンの手順を繰り返し実施するときに便利
 # 使用する変数を初回で確定させてしまう
-$ patternname="templateMethod" && patternnum=6 && repositoryname=jdp-${patternname}-`date "+%m%d-%H%M"` \
-> && directoryname=jdp-${patternnum}-${patternname} && echo ${repositoryname} && echo ${directoryname}
+$ patternname="templateMethod" && patternnum=6 && \
+> repositoryname=jdp-${patternname}-`date "+%m%d-%H%M"` \
+> && directoryname=jdp-${patternnum}-${patternname} \
+> && echo ${repositoryname} && echo ${directoryname}
 jdp-templateMethod-0727-1356
 jdp-6-templateMethod
 
@@ -50,7 +52,9 @@ $ git clone git@github.com:bjutxe/${repositoryname}.git ${directoryname}
 $ echo "git remote set-url origin https://bjutxe:ghp_abcde12345@github.com/bjutxe/"${repositoryname}".git"
 git remote set-url origin https://bjutxe:ghp_abcde12345@github.com/bjutxe/jdp-templateMethod-0727-1356.git
 
-# 使っているアプリケーションがCLI対応しているのであれば色々と柔軟に組み合わせられる：以下でVSCodeを開ける
+# 使っているアプリケーションがCLI対応しているのであれば
+# 色々と柔軟に組み合わせられる
+# 以下でVSCodeを開ける
 $ code ${directoryname}
 ```
 ## 再帰的に文字列で検索
@@ -116,7 +120,8 @@ github/gitignore
 increments/qiita-cli
 
 # 除外実行
-$ cat remove-repository.txt | xargs -I@ sh -c 'echo sed -iE \"s%@%%g\"' | xargs -I@ sh -c '@ watch-repository.txt'
+$ cat remove-repository.txt | xargs -I@ sh -c 'echo sed -iE \"s%@%%g\"' \
+> | xargs -I@ sh -c '@ watch-repository.txt'
 
 # 上記は改行まで削除できなかったので改良の余地あり
 $ cat watch-repository.txt | head
@@ -155,10 +160,12 @@ $ find . -type f -exec cat {} +
 // TODO: 執筆
 ```bash
 # これはフルパスが表示される
-diff -qrb –exclude=.git –exclude=target –exclude=.idea dir1 dir2 | cut -d" " -f2 | sort | sed -e "s/dir1//g"
+$ diff -qrb –exclude=.git –exclude=target –exclude=.idea dir1 dir2 \
+> | cut -d" " -f2 | sort | sed -e "s/dir1//g"
 
 # これがファイル名のみ
-diff -qrb –exclude=.git –exclude=target –exclude=.idea dir1 dir2 | cut -d" " -f2 | sort | xargs -n1 basename
+$ diff -qrb –exclude=.git –exclude=target –exclude=.idea dir1 dir2 \
+> | cut -d" " -f2 | sort | xargs -n1 basename
 ```
 ## バカデカファイルを分割する
 ```bash
@@ -231,5 +238,6 @@ vuejs/awesome-vue
 ```bash
 $ cat watch-repository.txt | sort | uniq \
 > | xargs -n1 sh -c 'echo $0 && gh issue list --repo $0 --label "first timers only" --limit 1000 --json id --jq ".[].id" | wc -l && gh issue list --repo $0 --label "good first issue" --limit 1000 --json id --jq ".[].id" | wc -l' \
-> | grep -v "repository has disabled issues" | xargs -n3 sh -c 'echo $2" "$3" "$1' sh | sort -k1,1nr -k2,2nr
+> | grep -v "repository has disabled issues" \
+> | xargs -n3 sh -c 'echo $2" "$3" "$1' sh | sort -k1,1nr -k2,2nr
 ```
