@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-23T00:53:22+09:00'
+updated_at: '2024-09-23T01:13:46+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -35,11 +35,11 @@ cat /etc/os-release
 ```
 ## vi時に文字検索
 // TODO: 執筆
-「/server」エンターキーで確定。その後は「n」で次を表示
+`/server` を入力してエンターキーで確定。その後は`n`で次を表示。何回も`n`を押せば良い。
 ## 変数から文字列を生成
 ```bash
 # 同じパターンの手順を繰り返し実施するときに便利
-# 使用する変数を初回で確定させてしまう
+# 使用する変数を冒頭で確定させてしまうコマンドを流用すると扱いやすい
 $ patternname="templateMethod" && patternnum=6 \
 > && repositoryname=jdp-${patternname}-`date "+%m%d-%H%M"` \
 > && directoryname=jdp-${patternnum}-${patternname} \
@@ -83,8 +83,11 @@ $ find . -type f -exec cat {} +
 APIレスポンス項目と、画面側項目定義とで表記ゆれがある場合などに使いました。
 それぞれのテキストファイルはあらかじめ作成した後にソートして比較すれば、
 それなりのタスクに落とし込むことができます。
+表記上改行のバックスラッシュを挟んでいますが、無くても全く問題ないです。
 ```bash
-$ diff <(cat api-response-property.txt | sort) <(cat ui-js-property.txt | sort)
+$ diff \
+> <(cat api-response-property.txt | sort) \
+> <(cat ui-js-property.txt | sort)
 ```
 ## ある行の出力を抑制する
 // TODO: 執筆
@@ -282,4 +285,4 @@ $ cat watch-repository.txt | sort | uniq \
 プログラマのというか日本国民の義務
 
 ## 英語圏
-英語圏ではshell tricksと呼ばれているらしい？: [マルチステージ ビルドを使う](https://docs.docker.jp/develop/develop-images/multistage-build.html)
+英語圏では`shell tricks`と呼ばれているらしい？: [マルチステージ ビルドを使う](https://docs.docker.jp/develop/develop-images/multistage-build.html)
