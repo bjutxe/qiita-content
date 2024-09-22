@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-22T16:26:14+09:00'
+updated_at: '2024-09-22T16:47:06+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -29,11 +29,10 @@ ignorePublish: false
 
 参考: [linuxショートカットキー一覧 #Linux - Qiita](https://qiita.com/haborym777/items/429ae0cf62ace57d6f1d) @haborym777 さん
 ## ディストリビューションの確認
-`WSL2`では以下で確認している
+`WSL2`では以下で確認している。インストールには`apt`を使用している
 ```bash
 cat /etc/os-release
 ```
-インストールには`apt`を使用している
 ## 変数から文字列を生成
 ```bash
 # 同じパターンの手順を繰り返し実施するときに便利
@@ -60,10 +59,26 @@ $ code ${directoryname}
 ## 再帰的に文字列で検索
 
 :::note information
-// TODO: grepのオプションの説明
-grep -r
-grep -C 1
+[Man page of GREP](https://linuxjm.sourceforge.io/html/GNU_grep/man1/egrep.1.html)
+grep -r: 再帰的に検索
+> -r, --recursive
+> 　各ディレクトリの下にあるすべてのファイルを再帰的に読み込みます。
+> 　ただし、シンボリックリンクはコマンドラインで指定されたときにのみたどります。
+> 　検索対象のファイルが指定されなかった場合には grep は現在のディレクトリを探すことに注意してください。
+> 　これは -d recurse オプションと等価です。
+
+grep -C 1: 前後1行も一緒に出力
+> 前後の文脈行の制御
+> -A NUM, --after-context=NUM
+> 　NUM で指定した行数だけ、パターンにマッチした行の後に続く文脈も表示します。
+> -B NUM, --before-context=NUM
+> 　NUM で指定した行数だけ、パターンにマッチした行に先行する文脈も表示します。
+> -C NUM, -NUM, --context=NUM
+> 　NUM で指定した行数だけ、パターンにマッチした行の前後の文脈も表示します。
+
 grep -n
+> -n, --line-number
+>   各出力行の前に、その入力ファイル内での 1 から始まる行番号を表示します。
 :::
 
 ```bash
@@ -149,7 +164,7 @@ $ diff watch-repository{,-test}.txt
 13d10
 < django/django
 ```
-## あるディレクトリ配下のファイル全ての内容を吐き出す
+## ディレクトリ配下の全ファイル内容を吐き出す
 // TODO: 執筆
 ```bash
 $ find . -type f -exec cat {} +
@@ -167,38 +182,6 @@ $ diff -qrb –exclude=.git –exclude=target –exclude=.idea dir1 dir2 \
 # これがファイル名のみ
 $ diff -qrb –exclude=.git –exclude=target –exclude=.idea dir1 dir2 \
 > | cut -d" " -f2 | sort | xargs -n1 basename
-```
-## バカデカファイルを分割する
-```bash
-root@8c724cd91a92:/workspaces/rust-devcon-template# ls -lrth
-total 52G
-drwxr-xr-x 2 1000 1000 4.0K Aug 22 22:15 src
--rw-r--r-- 1 1000 1000  116 Aug 22 22:18 Cargo.toml
--rw-r--r-- 1 1000 1000 1.1K Aug 22 22:28 Cargo.lock
-drwxr-xr-x 3 root root 4.0K Aug 22 22:28 target
--rw-r--r-- 1 root root 1.4G Aug 22 23:46 points_output-1.txt
--rw-r--r-- 1 root root  51G Aug 23 04:15 points_output.txt
-root@8c724cd91a92:/workspaces/rust-devcon-template# 
-root@8c724cd91a92:/workspaces/rust-devcon-template# which split
-/usr/bin/split
-root@8c724cd91a92:/workspaces/rust-devcon-template# 
-root@8c724cd91a92:/workspaces/rust-devcon-template# split -b 1G points_output.txt points_output_part_
-root@8c724cd91a92:/workspaces/rust-devcon-template# 
-root@8c724cd91a92:/workspaces/rust-devcon-template# ls -l | wc -l
-58
-root@8c724cd91a92:/workspaces/rust-devcon-template# 
-root@8c724cd91a92:/workspaces/rust-devcon-template# ls -lrth | tail
--rw-r--r-- 1 root root 1.0G Aug 23 10:37 points_output_part_bp
--rw-r--r-- 1 root root 1.0G Aug 23 10:37 points_output_part_bq
--rw-r--r-- 1 root root 1.0G Aug 23 10:37 points_output_part_br
--rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bs
--rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bt
--rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bu
--rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bv
--rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bw
--rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bx
--rw-r--r-- 1 root root 212M Aug 23 10:38 points_output_part_by
-root@8c724cd91a92:/workspaces/rust-devcon-template# 
 ```
 ## 2つのファイルをソートして比較
 // TODO: 執筆
@@ -233,6 +216,39 @@ The inputs are [cccc, dddd].
 ```bash
 $ cat watch-repository.txt | sort | uniq --repeated
 vuejs/awesome-vue
+```
+# 便利なコマンド
+## バカデカファイルを分割する
+```bash
+root@8c724cd91a92:/workspaces/rust-devcon-template# ls -lrth
+total 52G
+drwxr-xr-x 2 1000 1000 4.0K Aug 22 22:15 src
+-rw-r--r-- 1 1000 1000  116 Aug 22 22:18 Cargo.toml
+-rw-r--r-- 1 1000 1000 1.1K Aug 22 22:28 Cargo.lock
+drwxr-xr-x 3 root root 4.0K Aug 22 22:28 target
+-rw-r--r-- 1 root root 1.4G Aug 22 23:46 points_output-1.txt
+-rw-r--r-- 1 root root  51G Aug 23 04:15 points_output.txt
+root@8c724cd91a92:/workspaces/rust-devcon-template# 
+root@8c724cd91a92:/workspaces/rust-devcon-template# which split
+/usr/bin/split
+root@8c724cd91a92:/workspaces/rust-devcon-template# 
+root@8c724cd91a92:/workspaces/rust-devcon-template# split -b 1G points_output.txt points_output_part_
+root@8c724cd91a92:/workspaces/rust-devcon-template# 
+root@8c724cd91a92:/workspaces/rust-devcon-template# ls -l | wc -l
+58
+root@8c724cd91a92:/workspaces/rust-devcon-template# 
+root@8c724cd91a92:/workspaces/rust-devcon-template# ls -lrth | tail
+-rw-r--r-- 1 root root 1.0G Aug 23 10:37 points_output_part_bp
+-rw-r--r-- 1 root root 1.0G Aug 23 10:37 points_output_part_bq
+-rw-r--r-- 1 root root 1.0G Aug 23 10:37 points_output_part_br
+-rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bs
+-rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bt
+-rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bu
+-rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bv
+-rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bw
+-rw-r--r-- 1 root root 1.0G Aug 23 10:38 points_output_part_bx
+-rw-r--r-- 1 root root 212M Aug 23 10:38 points_output_part_by
+root@8c724cd91a92:/workspaces/rust-devcon-template# 
 ```
 # シェル芸作品
 ## GitHubリポジトリの選定
