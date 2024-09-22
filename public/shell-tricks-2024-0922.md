@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-23T01:34:58+09:00'
+updated_at: '2024-09-23T01:36:30+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -101,7 +101,7 @@ vuejs/awesome-vue
 ```
 # 検索系
 ## 再帰的に文字列で検索
-// TODO: Man page ofだとかオプションだとかを詳述すると記事がややこしくなるので別出しにしたい。オレオレで良いからあくまでもチートシート的であるべき
+// TODO: Man page ofだとかオプションだとかを詳述すると記事がややこしくなるので別出しにしたい。オレオレで良いからあくまでもシェル芸ワンライナーのチートシート的であるべき
 
 :::note information
 [Man page of GREP](https://linuxjm.sourceforge.io/html/GNU_grep/man1/egrep.1.html)
