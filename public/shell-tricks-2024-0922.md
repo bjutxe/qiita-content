@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-23T01:47:43+09:00'
+updated_at: '2024-09-23T01:50:34+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -244,7 +244,7 @@ root@8c724cd91a92:/workspaces/rust-devcon-template# ls -lrth | tail
 -rw-r--r-- 1 root root 212M Aug 23 10:38 points_output_part_by
 root@8c724cd91a92:/workspaces/rust-devcon-template# 
 ```
-# シェル芸作品
+# トラブルシューティング的
 ## xargsで上手く差し込む
 // TODO: ghがややこしいので簡易化する、別で書き出す
 ```bash
@@ -264,6 +264,7 @@ $ cat data.txt | xargs -n2 sh -c 'echo "The inputs are [$1, $2]."' sh
 The inputs are [aaaa, bbbb].
 The inputs are [cccc, dddd].
 ```
+# シェル芸作品
 ## GitHubリポジトリの選定
 `GitHub CLI`の`gh`コマンドを使って、
 コントリビュートしたいOSSを探している時にシェル芸をしました。
