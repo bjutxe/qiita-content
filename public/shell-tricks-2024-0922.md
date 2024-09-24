@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-23T01:50:34+09:00'
+updated_at: '2024-09-24T21:10:05+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -58,7 +58,41 @@ git remote set-url origin https://bjutxe:ghp_abcde12345@github.com/bjutxe/jdp-te
 # 色々と柔軟に組み合わせられる。以下でVSCodeを開ける
 $ code ${directoryname}
 ```
-# 標準出力系・分析系
+# 標準出力系
+## ある行だけを出力する
+
+:::note information
+[Man page of SED](https://linuxjm.sourceforge.io/html/GNU_sed/man1/sed.1.html)
+sed -n: パターンスペースを出力しない
+p: 現在のパターンスペースを出力
+:::
+
+```bash
+$ sudo cat -n /etc/sudoers | sed -n 46,56p
+    46
+    47  # Members of the admin group may gain root privileges
+    48  %admin ALL=(ALL) ALL
+    49
+    50  # Allow members of group sudo to execute any command
+    51  %sudo   ALL=(ALL:ALL) ALL
+    52
+    53  # See sudoers(5) for more information on "@include" directives:
+    54
+    55  @includedir /etc/sudoers.d
+    56
+```
+
+## 逆にある行だけ出力しない
+
+:::note information
+d: パターンスペースを削除します。 次のサイクルを開始します。
+:::
+
+```bash
+| sed 146,148d
+```
+
+# 分析系
 ## diff ディレクトリ 再帰的 ファイル名のみ
 // TODO: 執筆
 ```bash
@@ -89,11 +123,6 @@ $ diff \
 > <(cat api-response-property.txt | sort) \
 > <(cat ui-js-property.txt | sort)
 ```
-## ある行の出力を抑制する
-// TODO: 執筆
-```bash
-| sed 146,148d
-```
 ## 重複行を出力
 ```bash
 $ cat watch-repository.txt | sort | uniq --repeated
@@ -101,29 +130,12 @@ vuejs/awesome-vue
 ```
 # 検索系
 ## 再帰的に文字列で検索
-// TODO: Man page ofだとかオプションだとかを詳述すると記事がややこしくなるので別出しにしたい。オレオレで良いからあくまでもシェル芸ワンライナーのチートシート的であるべき
 
 :::note information
 [Man page of GREP](https://linuxjm.sourceforge.io/html/GNU_grep/man1/egrep.1.html)
 grep -r: 再帰的に検索
-> -r, --recursive
-> 　各ディレクトリの下にあるすべてのファイルを再帰的に読み込みます。
-> 　ただし、シンボリックリンクはコマンドラインで指定されたときにのみたどります。
-> 　検索対象のファイルが指定されなかった場合には grep は現在のディレクトリを探すことに注意してください。
-> 　これは -d recurse オプションと等価です。
-
 grep -C 1: 前後1行も一緒に出力
-> 前後の文脈行の制御
-> -A NUM, --after-context=NUM
-> 　NUM で指定した行数だけ、パターンにマッチした行の後に続く文脈も表示します。
-> -B NUM, --before-context=NUM
-> 　NUM で指定した行数だけ、パターンにマッチした行に先行する文脈も表示します。
-> -C NUM, -NUM, --context=NUM
-> 　NUM で指定した行数だけ、パターンにマッチした行の前後の文脈も表示します。
-
 grep -n: 行番号を表示
-> -n, --line-number
-> 　各出力行の前に、その入力ファイル内での 1 から始まる行番号を表示します。
 :::
 
 ```bash
