@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-24T21:10:05+09:00'
+updated_at: '2024-09-26T20:31:58+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -221,6 +221,28 @@ $ diff watch-repository{,-test}.txt
 13d10
 < django/django
 ```
+# ディレクトリやファイルの操作
+## タイムスタンプを変更せずにコピーする
+
+:::note information
+[Man page of CP](https://linuxjm.sourceforge.io/html/GNU_coreutils/man1/cp.1.html)
+cp -p: 元のファイルのオーナー、グループ、パーミション、タイムスタンプを保持
+:::
+
+```bash
+$ ls -lrt | grep ntp
+-rw-r--r-- 1 root     root       2136  2月 17  2022 ntp.conf
+
+$ sudo cp -p ntp.conf ntp-origin.conf
+
+# cpはブレース展開を覚えると楽
+$ sudo cp -p ntp{,-origin}.conf
+
+$ ls -lrt | grep ntp
+-rw-r--r-- 1 root     root       2136  2月 17  2022 ntp.conf
+-rw-r--r-- 1 root     root       2136  2月 17  2022 ntp-origin.conf
+```
+
 # 便利なコマンド
 ## バカデカファイルを分割する
 `51GB`ものファイルを作成してしまったときに`split`コマンドを知りました。
