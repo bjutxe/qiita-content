@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-27T22:17:54+09:00'
+updated_at: '2024-09-27T22:22:55+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -117,7 +117,6 @@ $ find . -type f -exec cat {} +
 APIレスポンス項目と、画面側項目定義とで表記ゆれがある場合などに使いました。
 それぞれのテキストファイルはあらかじめ作成した後にソートして比較すれば、
 それなりのタスクに落とし込むことができます。
-表記上改行のバックスラッシュを挟んでいますが、無くても全く問題ないです。
 ```bash
 $ diff \
 > <(cat api-response-property.txt | sort) \
@@ -236,10 +235,13 @@ mrdoob/three.js
 microsoft/terminal
 
 ```
+
 ## 空行の削除
+
+// TODO: 分かりづらいので別トピックで執筆
+
 ```bash
 # sedのインプレース処理で空行を削除
-// TODO: 分かりづらいので別トピックで執筆
 $ sed -iE '/^$/d' watch-repository-test.txt
 $ diff watch-repository{,-test}.txt
 2d1
