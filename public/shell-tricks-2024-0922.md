@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-26T20:31:58+09:00'
+updated_at: '2024-09-27T22:17:54+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -129,10 +129,38 @@ $ cat watch-repository.txt | sort | uniq --repeated
 vuejs/awesome-vue
 ```
 # 検索系
-## 再帰的に文字列で検索
+## OR検索
 
 :::note information
 [Man page of GREP](https://linuxjm.sourceforge.io/html/GNU_grep/man1/egrep.1.html)
+grep -e PATTERN: PATTERN をパターンとして指定します。デフォルトは基本正規表現 (BRE)
+grep -E PATTERN: PATTERN を拡張正規表現 (ERE) として扱います
+:::
+
+```bash
+# 基本正規表現でも連続で-eを指定すればOR検索します
+$ cat watch | grep -e awesome -e rust
+rust-lang/rust
+vuejs/awesome-vue
+rustdesk/rustdesk
+rust-lang/rustlings
+rust-unofficial/awesome-rust
+
+# -eでは拡張正規表現で検索できません
+$ cat watch | grep -e "awesome|rust"
+
+# 大文字の-Eだとある程度は柔軟に正規表現を扱えます
+$ cat watch | grep -E "awesome|rust"
+rust-lang/rust
+vuejs/awesome-vue
+rustdesk/rustdesk
+rust-lang/rustlings
+rust-unofficial/awesome-rust
+```
+
+## 再帰的に文字列で検索
+
+:::note information
 grep -r: 再帰的に検索
 grep -C 1: 前後1行も一緒に出力
 grep -n: 行番号を表示
