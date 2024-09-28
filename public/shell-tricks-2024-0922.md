@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-27T22:22:55+09:00'
+updated_at: '2024-09-28T12:01:41+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -156,6 +156,10 @@ rustdesk/rustdesk
 rust-lang/rustlings
 rust-unofficial/awesome-rust
 ```
+
+## AND検索
+パイプで繋げて地道に絞り込み続けるか、拡張正規表現を駆使して絞り込むか
+// TODO: 良い具体例が見つかったら書きます
 
 ## 再帰的に文字列で検索
 
