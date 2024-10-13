@@ -7,7 +7,7 @@ tags:
   - チートシート
   - Linuxコマンド
 private: false
-updated_at: '2024-09-30T19:19:04+09:00'
+updated_at: '2024-10-13T11:31:19+09:00'
 id: 8b84d6b1ede90cba1966
 organization_url_name: null
 slide: false
@@ -106,7 +106,47 @@ $ diff -qrb –exclude=.git –exclude=target –exclude=.idea dir1 dir2 \
 > | cut -d" " -f2 | sort | xargs -n1 basename
 ```
 ## 除外tree
-// TODO: 執筆
+```bash
+$ tree -a -I .git -I target -I .vscode -I node_modules
+.
+├── .gitignore
+├── .tool-versions
+├── LICENSE.md
+├── README.md
+├── Tiltfile
+├── backend
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   ├── Dockerfile
+│   └── src
+│       └── main.rs
+├── docker-compose.yml
+└── frontend
+    ├── Dockerfile
+    ├── README.md
+    ├── package-lock.json
+    ├── package.json
+    ├── public
+    │   ├── favicon.ico
+    │   ├── index.html
+    │   ├── logo192.png
+    │   ├── logo512.png
+    │   ├── manifest.json
+    │   └── robots.txt
+    ├── src
+    │   ├── App.css
+    │   ├── App.test.tsx
+    │   ├── App.tsx
+    │   ├── index.css
+    │   ├── index.tsx
+    │   ├── logo.svg
+    │   ├── react-app-env.d.ts
+    │   ├── reportWebVitals.ts
+    │   └── setupTests.ts
+    └── tsconfig.json
+
+5 directories, 30 files
+```
 ## ディレクトリ配下の全ファイル内容を吐き出す
 // TODO: 執筆
 ```bash
